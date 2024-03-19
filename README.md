@@ -1,5 +1,5 @@
 To clone this:
-1. open a pwershell on your desktop location and run this:
+1. open a Powershell on your desktop location and run this:
 git clone https://github.com/Consoling/barber-ecom
 
 2. Run:
