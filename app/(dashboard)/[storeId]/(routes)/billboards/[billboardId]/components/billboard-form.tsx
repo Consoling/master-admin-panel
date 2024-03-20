@@ -24,8 +24,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
-import { useOrigin } from "@/hooks/use-origin";
+
 import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
@@ -46,7 +45,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
+ 
 
   const title = initialData ? "Edit billboard" : "Create billboard";
   const description = initialData
@@ -69,9 +68,10 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           data
         );
       }
-      await axios.post(`/api/${params.storeId}/billboards}`, data);
+      await axios.post(`/api/${params.storeId}/billboards`, data);
       router.refresh();
       toast.success(toastMessage);
+      router.push(`/${params.storeId}/billboards`);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -82,9 +82,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
+      await axios.delete(
+        `/api/${params.storeId}/billboards/${params.billboardId}`
+      );
       router.refresh();
-      router.push("/");
+      router.push(`${params.storeId}/billboards`);
       toast.success("Billboard deleted ");
     } catch (error) {
       toast.error(
