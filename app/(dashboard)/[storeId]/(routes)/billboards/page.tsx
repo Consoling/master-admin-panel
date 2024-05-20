@@ -23,6 +23,7 @@ const BillboardsPage = async ({
     id: item.id,
     label: item.label,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    description: item.description,
   }));
 
   return (

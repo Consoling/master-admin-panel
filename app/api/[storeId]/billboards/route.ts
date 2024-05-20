@@ -12,7 +12,7 @@ export async function POST(
 
     const body = await req.json();
 
-    const { label, imageUrl } = body;
+    const { label, imageUrl, description } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -46,6 +46,7 @@ export async function POST(
         label,
         imageUrl,
         storeId: params.storeId,
+        description,
       }
     });
   
