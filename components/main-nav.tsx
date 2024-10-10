@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useParams, usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils"
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 export function MainNav({
   className,
@@ -30,7 +31,7 @@ export function MainNav({
     },
     {
       href: `/${params.storeId}/sizes`,
-      label: 'Sizes',
+      label: 'Variants',
       active: pathname === `/${params.storeId}/sizes`,
     },
     {
@@ -43,11 +44,7 @@ export function MainNav({
       label: 'Products',
       active: pathname === `/${params.storeId}/products`,
     },
-    {
-      href: `/${params.storeId}/movies`,
-      label: 'Movies',
-      active: pathname === `/${params.storeId}/movies`
-    },
+   
     {
       href: `/${params.storeId}/orders`,
       label: 'Orders',
@@ -61,12 +58,14 @@ export function MainNav({
   ]
 
   return (
-    <nav
-      className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+   <ScrollArea className="lg:px-0 px-5">
+     <nav
+      className={cn("flex py-3  items-center space-x-4 lg:space-x-6 whitespace-nowrap overflow-x-auto", className)}
       {...props}
     >
       {routes.map((route) => (
-        <Link
+    
+          <Link
           key={route.href}
           href={route.href}
           className={cn(
@@ -76,7 +75,10 @@ export function MainNav({
         >
           {route.label}
       </Link>
+  
       ))}
     </nav>
+    <ScrollBar orientation="horizontal" className="px-4" />
+   </ScrollArea>
   )
 };

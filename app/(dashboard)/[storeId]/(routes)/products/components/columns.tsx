@@ -10,8 +10,9 @@ export type ProductColumn = {
   description: string;
   price: string;
   category: string;
-  size: string;
-  color: string;
+  stockCount: string;
+  size: string | null;
+  color: string | null;
   createdAt: string;
   isFeatured: boolean;
   isArchived: boolean;
@@ -39,6 +40,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
     header: "Price",
   },
   {
+    accessorKey: "stockCount",
+    header: "Stock Count"
+  },
+  {
     accessorKey: "category",
     header: "Category",
   },
@@ -51,11 +56,15 @@ export const columns: ColumnDef<ProductColumn>[] = [
     header: "Color",
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
-        {row.original.color}
+       {row.original.color ? (
+        <>
+         {row.original.color}
         <div
           className="h-6 w-6 rounded-full border"
-          style={{ backgroundColor: row.original.color }}
+          style={{ backgroundColor: row?.original?.color }}
         />
+        </>
+       ): "No colors defined"}
       </div>
     ),
   },
