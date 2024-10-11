@@ -77,7 +77,7 @@ export async function PATCH(
 
     const body = await req.json();
     
-    const { name } = body;
+    const { name, imageUrl } = body;
     
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -112,6 +112,7 @@ export async function PATCH(
       },
       data: {
         name,
+        imageUrl
         // billboardId
       }
     });

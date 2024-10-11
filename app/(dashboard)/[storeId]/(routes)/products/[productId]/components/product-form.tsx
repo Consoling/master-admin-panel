@@ -41,8 +41,16 @@ const formSchema = z.object({
   price: z.coerce.number().min(1),
   stockCount: z.coerce.number().min(1),
   categoryId: z.string().min(1),
-  colorId: z.string().nullable(),
-  sizeId: z.string().nullable(),
+  colorId: z
+    .union([z.string().nullable(), z.literal("none")])
+    .transform((value) => {
+      return value === "none" ? null : value;
+    }),
+  sizeId: z
+    .union([z.string().nullable(), z.literal("none")])
+    .transform((value) => {
+      return value === "none" ? null : value;
+    }),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
 });
@@ -82,8 +90,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         ...initialData,
         price: parseFloat(String(initialData?.price)),
         stockCount: parseFloat(String(initialData?.stockCount)),
-        colorId: initialData.colorId || undefined, // Convert null to undefined
-        sizeId: initialData.sizeId || undefined,
+        colorId: initialData?.colorId || null, // Convert null to undefined
+        sizeId: initialData?.sizeId || null,
       }
     : {
         name: "",
@@ -104,6 +112,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   });
 
   const onSubmit = async (data: ProductFormValues) => {
+    const validationResult = formSchema.safeParse(data);
+
+    if (!validationResult.success) {
+      console.error("Zod validation errors:", validationResult.error.format());
+
+      toast.error("Please check form");
+    }
     try {
       setLoading(true);
       if (initialData) {
@@ -297,7 +312,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <Select
                     disabled={loading}
                     onValueChange={(value) =>
-                      field.onChange(value === "none" ? null : value)
+                      field.onChange(value === "none" ? "none" : value)
                     }
                     value={field.value || "none"}
                     defaultValue={field.value || "none"}
@@ -310,7 +325,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <SelectContent>
                       <SelectItem value="none">None</SelectItem>{" "}
                       {/* "None" option */}
-                      {sizes.map((size) => (
+                      {sizes?.map((size) => (
                         <SelectItem key={size.id} value={size.id}>
                           {size.name}
                         </SelectItem>
@@ -330,7 +345,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <Select
                     disabled={loading}
                     onValueChange={(value) =>
-                      field.onChange(value === "none" ? null : value)
+                      field.onChange(value === "none" ? "none" : value)
                     }
                     value={field.value || "none"}
                     defaultValue={field.value || "none"}
@@ -344,9 +359,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="none">None</SelectItem>{" "}
                       {/* "None" option */}
-                      {colors.map((color) => (
+                      <SelectItem value="none">None</SelectItem>
+                      {colors?.map((color) => (
                         <SelectItem key={color.id} value={color.id}>
                           {color.name}
                         </SelectItem>

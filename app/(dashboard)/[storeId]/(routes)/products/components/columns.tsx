@@ -41,7 +41,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
   },
   {
     accessorKey: "stockCount",
-    header: "Stock Count"
+    header: "Stock Count",
   },
   {
     accessorKey: "category",
@@ -50,21 +50,28 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "size",
     header: "Size",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-x-2">
+        {row.original.size ? <>{row.original.size}</> : "No sizes defined"}
+      </div>
+    ),
   },
   {
     accessorKey: "color",
     header: "Color",
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
-       {row.original.color ? (
-        <>
-         {row.original.color}
-        <div
-          className="h-6 w-6 rounded-full border"
-          style={{ backgroundColor: row?.original?.color }}
-        />
-        </>
-       ): "No colors defined"}
+        {row.original.color ? (
+          <>
+            {row.original.color}
+            <div
+              className="h-6 w-6 rounded-full border"
+              style={{ backgroundColor: row?.original?.color }}
+            />
+          </>
+        ) : (
+          "No colors defined"
+        )}
       </div>
     ),
   },

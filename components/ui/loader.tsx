@@ -1,7 +1,7 @@
 "use client";
 
-import { ClipLoader } from "react-spinners";
+import { ClipLoader, PuffLoader } from "react-spinners";
 
 export const Loader = () => {
-  return <ClipLoader color="#3498db" size={50} />
+  return <PuffLoader color="#3498db" size={50} />
 };

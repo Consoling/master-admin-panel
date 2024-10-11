@@ -32,7 +32,7 @@ const ProductsPage = async ({
     isFeatured: item.isFeatured,
     isArchived: item.isArchived,
     price: formatter.format(item.price.toNumber()),
-    stockCount: item.stockCount.toString(),
+    stockCount: item.stockCount.toNumber().toString(),
     category: item.category.name,
     size: item?.size?.name || null,
     color: item?.color?.value || null,
@@ -41,6 +41,7 @@ const ProductsPage = async ({
 
   return (
     <div className="flex-col">
+      
       <div className="flex-1 space-y-4 p-8 pt-6">
         <ProductsClient data={formattedProducts} />
       </div>

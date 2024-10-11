@@ -10,3 +10,8 @@ export const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'INR',
 });
+
+
+export const numberFormatter = new Intl.NumberFormat('en-US', {
+  // You can specify options here if needed, e.g., minimumFractionDigits, maximumFractionDigits
+});

@@ -3,7 +3,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "res.cloudinary.com",
+        hostname: "master-admin-panel-next.s3.amazonaws.com",
       },
     ],
   },
