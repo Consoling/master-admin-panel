@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import { CellAction } from "./cell-action";
+import { PuffLoader } from "react-spinners";
 
 export type ProductColumn = {
   id: string;
@@ -29,7 +30,32 @@ export const columns: ColumnDef<ProductColumn>[] = [
   },
   {
     accessorKey: "isArchived",
-    header: "Archived",
+    header: "Status",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-x-2">
+        {row.original.isArchived === true ? (
+          <>
+            <div className="flex flex-col justify-center items-center space-y-2 text-sm">
+              <PuffLoader color='#671e21' size={25}>
+                <div className="h-4 w-4 rounded-full border bg-red-500" />
+              </PuffLoader>
+
+              <p className="text-sm">Inactive</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-col justify-center items-center space-y-2 text-sm">
+              <PuffLoader color="#50e3c2" size={25}>
+                <div className="h-4 w-4 rounded-full border bg-[#50e3c2]" />
+              </PuffLoader>
+
+              <p className="text-sm">Active</p>
+            </div>
+          </>
+        )}
+      </div>
+    ),
   },
   {
     accessorKey: "isFeatured",
