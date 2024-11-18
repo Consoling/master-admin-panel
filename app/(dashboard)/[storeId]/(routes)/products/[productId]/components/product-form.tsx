@@ -38,6 +38,7 @@ const formSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   images: z.object({ url: z.string() }).array(),
+  weight: z.coerce.number().min(1),
   price: z.coerce.number().min(1),
   stockCount: z.coerce.number().min(1),
   categoryId: z.string().min(1),
@@ -66,6 +67,7 @@ interface ProductFormProps {
   categories: Category[];
   colors: Color[];
   sizes: Size[];
+  weight: number;
 }
 
 export const ProductForm: React.FC<ProductFormProps> = ({
@@ -73,6 +75,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   categories,
   sizes,
   colors,
+  weight
 }) => {
   const params = useParams();
   const router = useRouter();
@@ -92,6 +95,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         stockCount: parseFloat(String(initialData?.stockCount)),
         colorId: initialData?.colorId || null, // Convert null to undefined
         sizeId: initialData?.sizeId || null,
+        weight: typeof initialData?.weight === "number" ? initialData.weight : 0,
       }
     : {
         name: "",
@@ -100,6 +104,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         price: 0,
         categoryId: "",
         colorId: "",
+        weight: 0,
         stockCount: 0,
         sizeId: "",
         isFeatured: false,
@@ -383,6 +388,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       type="number"
                       disabled={loading}
                       placeholder="9.99"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="weight"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Item Weight <span className="font-thin text-sm">(in Kg's)</span></FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      disabled={loading}
+                      placeholder="in kg's"
                       {...field}
                     />
                   </FormControl>

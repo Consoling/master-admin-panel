@@ -35,6 +35,7 @@ const ProductsPage = async ({
     stockCount: item.stockCount.toNumber().toString(),
     category: item.category.name,
     size: item?.size?.name || null,
+    weight: item?.weight ? item.weight.toNumber().toString() : null,
     color: item?.color?.value || null,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
@@ -42,7 +43,7 @@ const ProductsPage = async ({
   return (
     <div className="flex-col">
       
-      <div className="flex-1 space-y-4 p-8 pt-6 ">
+      <div className="flex-1 space-y-4 p-8 pt-6 overflow-y-auto scrollbar">
         <ProductsClient data={formattedProducts} />
       </div>
     </div>

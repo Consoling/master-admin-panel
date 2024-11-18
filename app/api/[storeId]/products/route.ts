@@ -21,6 +21,7 @@ export async function POST(
       colorId,
       sizeId,
       images,
+      weight,
       isFeatured,
       isArchived,
     } = body;
@@ -77,6 +78,7 @@ export async function POST(
         name,
         description,
         price,
+        weight,
         stockCount,
         isFeatured,
         isArchived,

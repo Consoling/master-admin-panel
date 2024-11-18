@@ -14,6 +14,7 @@ export type ProductColumn = {
   stockCount: string;
   size: string | null;
   color: string | null;
+  weight: string | null;
   createdAt: string;
   isFeatured: boolean;
   isArchived: boolean;
@@ -100,6 +101,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
         )}
       </div>
     ),
+  },
+  {
+    accessorKey: "weight",
+    header: "Scale Weight (Kg)",
   },
   {
     accessorKey: "createdAt",

@@ -87,6 +87,7 @@ export async function PATCH(
       categoryId,
       colorId,
       sizeId,
+      weight,
       images,
       isFeatured,
       isArchived,
@@ -145,6 +146,7 @@ export async function PATCH(
         price,
         stockCount,
         categoryId,
+        weight,
         colorId: updatedColorId,
         sizeId: updatedSizeId,
         images: {

@@ -41,8 +41,8 @@ const ProductPage = async ({
           categories={categories}
           colors={colors}
           sizes={sizes}
-          initialData={product}
-        />
+          initialData={product} 
+          weight={0}        />
       </div>
     </div>
   );
